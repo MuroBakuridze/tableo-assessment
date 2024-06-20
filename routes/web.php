@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RestaurantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [RestaurantController::class, 'index'])->name('restaurants.index');
+Route::get('/restaurants/tables', [RestaurantController::class, 'allTables'])->name('restaurants.allTables');
+Route::get('/restaurants/active-tables', [RestaurantController::class, 'allActiveTables'])->name('restaurants.allActiveTables');
+Route::get('/restaurants/{id}', [RestaurantController::class, 'show'])->name('restaurants.show');
+Route::get('/restaurants/{id}/tables', [RestaurantController::class, 'showTables'])->name('restaurants.tables');
+Route::get('/restaurants/{id}/active-tables', [RestaurantController::class, 'showActiveTables'])->name('restaurants.active_tables');
