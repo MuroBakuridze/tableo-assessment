@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DiningArea;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class RestaurantController extends Controller
 {
@@ -63,5 +65,60 @@ class RestaurantController extends Controller
         }
     
         return view('restaurants.all_active_tables', ['diningAreas' => $diningAreas, 'restaurants' => $this->restaurants]);
+    }
+
+    public function createRestaurant()
+    {
+        return view('restaurants.create');
+    }
+
+    public function storeRestaurant(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        Restaurant::create($request->all());
+
+        return redirect()->route('restaurants.index')->with('success', 'Restaurant created successfully.');
+    }
+
+    public function createTable($id)
+    {
+        $restaurant = Restaurant::findOrFail($id);
+        $diningAreas = DiningArea::all();
+        return view('tables.create', compact('restaurant', 'diningAreas'));
+    }
+
+    public function storeTable(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'minimum_capacity' => 'required|integer|min:1',
+            'maximum_capacity' => 'required|integer|min:1',
+            'active' => 'required|boolean',
+            'dining_area_id' => 'required|exists:dining_areas,id',
+        ]);
+
+        $restaurant = Restaurant::findOrFail($id);
+        $restaurant->tables()->create($request->all());
+
+        return redirect()->route('restaurants.show', $id)->with('success', 'Table created successfully.');
+    }
+
+    public function createDiningArea()
+    {
+        return view('dining_areas.create');
+    }
+
+    public function storeDiningArea(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        DiningArea::create($request->all());
+
+        return redirect()->route('restaurants.index')->with('success', 'Dining Area created successfully.');
     }
 }

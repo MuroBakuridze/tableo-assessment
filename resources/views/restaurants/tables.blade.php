@@ -19,6 +19,7 @@
                 @endforeach
             </ul>
             <div class="text-center mt-3">
+                <a href="{{ route('tables.create', $restaurant->id) }}" class="btn btn-primary">Add Table</a>
                 <a href="{{ route('restaurants.show', $restaurant->id) }}" class="btn btn-secondary">Back to {{ $restaurant->name }}</a>
                 <a href="{{ route('restaurants.index') }}" class="btn btn-secondary">Back to Home</a>
             </div>

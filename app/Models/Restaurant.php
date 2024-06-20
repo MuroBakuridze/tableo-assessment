@@ -11,6 +11,8 @@ class Restaurant extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function tables()
     {
         return $this->hasMany(Table::class);

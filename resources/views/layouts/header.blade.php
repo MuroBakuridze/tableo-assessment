@@ -4,16 +4,22 @@
         <div class="collapse navbar-collapse justify-content-center">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('restaurants.allTables') }}" class="btn btn-info btn-sm">Tables</a>
+                    <a class="nav-link font-weight-bold mx-2" href="{{ route('restaurants.allTables') }}">Tables</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('restaurants.allActiveTables') }}" class="btn btn-warning btn-sm">Active Tables</a>
+                    <a class="nav-link font-weight-bold mx-2" href="{{ route('restaurants.allActiveTables') }}">Active Tables</a>
                 </li>
                 @foreach ($restaurants as $restaurant)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('restaurants.show', ['id' => $restaurant->id]) }}">{{ $restaurant->name }}</a>
+                        <a class="nav-link font-weight-bold mx-2" href="{{ route('restaurants.show', ['id' => $restaurant->id]) }}">{{ $restaurant->name }}</a>
                     </li>
-                @endforeach 
+                @endforeach
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold mx-2" href="{{ route('restaurants.create') }}">Add Restaurant</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold mx-2" href="{{ route('dining_areas.create') }}">Add Dining Area</a>
+                </li>
             </ul>
         </div>
     </div>
